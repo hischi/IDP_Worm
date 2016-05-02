@@ -22,7 +22,7 @@ void startConnection(uint16_t id)
   bufLen = 0;
 }
 
-bool sendValues(uint16_t desA, uint16_t desB, uint16_t desC, uint16_t presA, uint16_t presB, uint16_t presC, uint16_t lenA, uint16_t lenB, uint16_t lenC)
+bool sendValues(uint16_t desA, uint16_t desB, uint16_t desC, uint16_t presA, uint16_t presB, uint16_t presC, int16_t lenA, int16_t lenB, int16_t lenC)
 {
   msg.timestamp = millis()-starttime;
   msg.desiredA = desA;
@@ -93,9 +93,9 @@ void getValuesFromRequest(uint16_t *pSetA, uint16_t *pSetB, uint16_t *pSetC)
     for(int i = 0; i < sizeof(tRequest); i++)
       buf[i] = cBuffer[(startIdx + i)%BUFFER_LEN];
 
-    *pSetA = ((struct tRequest*) &(buf[startIdx]))->desiredA;
-    *pSetB = ((struct tRequest*) &(buf[startIdx]))->desiredB;
-    *pSetC = ((struct tRequest*) &(buf[startIdx]))->desiredC;
+    *pSetA = ((struct tRequest*) &buf)->desiredA;
+    *pSetB = ((struct tRequest*) &buf)->desiredB;
+    *pSetC = ((struct tRequest*) &buf)->desiredC;
   }
 }
 
@@ -123,9 +123,9 @@ bool getSetPoints(int timeout, uint16_t *pSetA, uint16_t *pSetB, uint16_t *pSetC
   }
 
   getValuesFromRequest(pSetA, pSetB, pSetC);
-  bufLen -= sizeof(tRequest);
-  if(bufLen < 0) 
-    bufLen = 0;
+  bufLen--;
+    if(bufLen < 0) 
+      bufLen = 0;
 
   return true;
 

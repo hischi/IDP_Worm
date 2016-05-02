@@ -19,9 +19,9 @@ struct tMessage
   uint16_t pressureB;
   uint16_t pressureC;
 
-  uint16_t lengthA;
-  uint16_t lengthB;
-  uint16_t lengthC;
+  int16_t lengthA;
+  int16_t lengthB;
+  int16_t lengthC;
 };
 
 struct tRequest
@@ -35,7 +35,7 @@ struct tRequest
 
 void startConnection(uint16_t id);
 
-bool sendValues(uint16_t desA, uint16_t desB, uint16_t desC, uint16_t presA, uint16_t presB, uint16_t presC, uint16_t lenA, uint16_t lenB, uint16_t lenC);
+bool sendValues(uint16_t desA, uint16_t desB, uint16_t desC, uint16_t presA, uint16_t presB, uint16_t presC, int16_t lenA, int16_t lenB, int16_t lenC);
 bool getSetPoints(int timeout, uint16_t *pSetA, uint16_t *pSetB, uint16_t *pSetC);
 
 
