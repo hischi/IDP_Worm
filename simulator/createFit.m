@@ -1,4 +1,3 @@
-function [fitresult, gof] = createFit()
 %CREATEFIT(P,H,F)
 %  Create a fit.
 %
@@ -25,18 +24,5 @@ opts = fitoptions( 'Method', 'LowessFit' );
 opts.Robust = 'Bisquare';
 
 % Fit model to data.
-[fitresult, gof] = fit( [xData, yData], zData, ft, opts );
-
-% Plot fit with data.
-figure( 'Name', 'muscle_force' );
-h_1 = plot( fitresult, [xData, yData], zData );
-legend( h_1, 'muscle_force', 'F vs. p, h', 'Location', 'NorthEast' );
-% Label axes
-xlabel p
-ylabel h
-zlabel F
-grid on
-view( -242.7, 66.0 );
-
-
+muscle_func_fit = fit( [xData, yData], zData, ft, opts );
 

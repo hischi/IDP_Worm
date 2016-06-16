@@ -24,18 +24,19 @@ assume(g, 'real');      % gravity acceleration [m/s^2]
 
 
 %% constants
-m = 0.15;       % mass of end-effector [kg]
-r_B = 0.025;    % distance center to mid of muscle [m]
-k = 1500;       % spring constant (metallic spring) [N/m]
-d = 1000;       % damping constant (overall-system) [Ns/m]
-l0 = 0.16;      % norm. length of muscle [m]
+load('RobotConstants');
+% m:    mass of end-effector [kg]
+% r_B:  distance center to mid of muscle [m]
+% k:    spring constant (metallic spring) [N/m]
+% d:    damping constant (overall-system) [Ns/m]
+% l0:   norm. length of muscle [m]
 
 %% help relations
 q = [q1; q2; q3];           % muscle lengths [m]
 dq = [dq1; dq2; dq3];       % muscle length velocities [m/s]
 ddq = [ddq1; ddq2; ddq3];   % muscle length accelerations [m/s^2]
 Fm = [Fm1; Fm2; Fm3];       % muscle force (active - spring) [N] 
-h = q - l0;                 % absolute contraction [m]
+h = l0 - q;                 % absolute contraction [m]
 hrel = h / l0;              % relative contraction
 
 %% kinematics (from Festo paper)
@@ -48,26 +49,28 @@ c_kl = cos(kappa*l);
 s_phi = sin(phi);
 s_kl = sin(kappa*l);
 
+R = 
+
 if equalCase == 0
     r = [c_phi*(1-c_kl)/kappa;...   % position of end-effector   
          s_phi*(1-c_kl)/kappa;...
-         s_kl/kappa];              
+         -s_kl/kappa];              
 else
     r = [0;...  % position of end-effector if all lengths are equal
          0;...
-         l];
+         -l];
 end
  
 %% potential energies
 Vh = m * g * [0 0 1]*r; % height energy
 Vs = 1/2 * k * h.^2;    % spring energy (metallic spring)
-V = -Vh + sum(Vs);
+V = Vh + sum(Vs);
  
 %% kinematic energies
 drdt = jacobian(r) * dq;        % velocity of end-effector
 T = 1/2 * m * (drdt' * drdt);   % translational kinetic energy
  
-%% generalized forves
+%% generalized forces
 Fdmp = -d * dq; % damping force
 Q = Fm + Fdmp;  % I may have to consider the coordinate of the end-effector here...
 
@@ -83,11 +86,11 @@ N = subs(LG,{ddq1, ddq2, ddq3,g},{0,0,0,9.81});
 
 %% M matrix
 % first column
-M1 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{1,0,0,0,0,0,0});
+M1 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{1,0,0,0,0,0,9.81}) - subs(N,{dq1, dq2, dq3},{0,0,0});
 % second column
-M2 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{0,1,0,0,0,0,0});
+M2 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{0,1,0,0,0,0,9.81}) - subs(N,{dq1, dq2, dq3},{0,0,0});
 % third column
-M3 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{0,0,1,0,0,0,0});
+M3 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{0,0,1,0,0,0,9.81}) - subs(N,{dq1, dq2, dq3},{0,0,0});
 
 M = [M1, M2, M3];
 
@@ -98,8 +101,11 @@ end
 %% save results
 if save ~= 0
     if equalCase == 0
-        Nfunc = matlabFunction(N,'File','Nfunc','Optimize',false,'Vars',{q; dq});
-        Mfunc = matlabFunction(M,'File','Mfunc','Optimize',false,'Vars',{q});
+        disp('N function');
+        Nfunc = matlabFunction(N,'File','Nfunc','Vars',{q; dq});
+        disp('M function');
+        Mfunc = matlabFunction(M,'File','Mfunc','Vars',{q});
+        disp('Q function');
         Qfunc = matlabFunction(Q,'File','Qfunc','Vars',{dq; Fm});
     else
         Nfunc2 = matlabFunction(N,'File','Nfunc2','Vars',{q; dq});
