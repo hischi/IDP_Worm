@@ -49,8 +49,6 @@ c_kl = cos(kappa*l);
 s_phi = sin(phi);
 s_kl = sin(kappa*l);
 
-R = 
-
 if equalCase == 0
     r = [c_phi*(1-c_kl)/kappa;...   % position of end-effector   
          s_phi*(1-c_kl)/kappa;...
