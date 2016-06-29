@@ -30,6 +30,7 @@ load('RobotConstants');
 % k:    spring constant (metallic spring) [N/m]
 % d:    damping constant (overall-system) [Ns/m]
 % l0:   norm. length of muscle [m]
+% ls:   norm. length of spring [m]
 
 %% help relations
 q = [q1; q2; q3];           % muscle lengths [m]
@@ -38,6 +39,8 @@ ddq = [ddq1; ddq2; ddq3];   % muscle length accelerations [m/s^2]
 Fm = [Fm1; Fm2; Fm3];       % muscle force (active - spring) [N] 
 h = l0 - q;                 % absolute contraction [m]
 hrel = h / l0;              % relative contraction
+hs = ls - q;                % absolute spring contraction [m]
+hsrel = hs / ls;            % relative spring contraction
 
 %% kinematics (from Festo paper)
 l = 1/3 * (q1+q2+q3);   
@@ -61,7 +64,7 @@ end
  
 %% potential energies
 Vh = m * g * [0 0 1]*r; % height energy
-Vs = 1/2 * k * h.^2;    % spring energy (metallic spring)
+Vs = 1/2 * k * hs.^2;    % spring energy (metallic spring)
 V = Vh + sum(Vs);
  
 %% kinematic energies

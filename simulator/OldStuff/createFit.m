@@ -26,3 +26,17 @@ opts.Robust = 'Bisquare';
 % Fit model to data.
 muscle_func_fit = fit( [xData, yData], zData, ft, opts );
 
+muscle_func = @(u)feval(muscle_func_fit,u);
+
+%% Fit: 'inv_muscle_force'
+[xData, yData, zData] = prepareSurfaceData( F, h, p );
+
+% Set up fittype and options.
+ft = fittype( 'lowess' );
+
+% Fit model to data.
+inv_muscle_func_fit = fit( [xData, yData], zData, ft );
+
+inv_muscle_func = @(u)feval(inv_muscle_func_fit,u);
+
+clear F ft h muscle_func_fit inv_muscle_func_fit opts p xData yData zData
