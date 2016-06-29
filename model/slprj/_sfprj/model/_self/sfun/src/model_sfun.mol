@@ -1,0 +1,17 @@
+model_sfun.obj
+c2_model.obj
+model_sfun_registry.obj
+-LC:\PROGRA~1\MATLAB\R2016a\extern\lib\win64\mingw64
+-llibmwblas
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\sf_runtime.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmx.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmex.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmat.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libfixedpoint.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libut.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmwmathutil.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libemlrt.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmwsl_log_load_blocks.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmwsimulink.lib" 
+"C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmwsl_sfcn_cov_bridge.lib" 
+"-LC:\Program Files\MATLAB\R2016a\bin\win64" "-llibmwipp"
