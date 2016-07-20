@@ -1,7 +1,7 @@
 % Derive DE for robot
 % options:
 save = 1;       % save to matlab files
-equalCase = 0;  % all lengths are equal
+equalCase = 1;  % all lengths are equal
 
 
 %% declare symbolics
@@ -87,16 +87,16 @@ N = subs(LG,{ddq1, ddq2, ddq3,g},{0,0,0,9.81});
 
 %% M matrix
 % first column
-M1 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{1,0,0,0,0,0,9.81}) - subs(N,{dq1, dq2, dq3},{0,0,0});
+M1 = subs(LG,{ddq1, ddq2, ddq3,g},{1,0,0,9.81}) - N;
 % second column
-M2 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{0,1,0,0,0,0,9.81}) - subs(N,{dq1, dq2, dq3},{0,0,0});
+M2 = subs(LG,{ddq1, ddq2, ddq3,g},{0,1,0,9.81}) - N;
 % third column
-M3 = subs(LG,{ddq1, ddq2, ddq3,dq1, dq2, dq3,g},{0,0,1,0,0,0,9.81}) - subs(N,{dq1, dq2, dq3},{0,0,0});
+M3 = subs(LG,{ddq1, ddq2, ddq3,g},{0,0,1,9.81}) - N;
 
 M = [M1, M2, M3];
 
 if equalCase ~= 0
-    M = M .* eye(size(M));  % correct matrix (it should be invertible)
+    M = 3 * M .* eye(size(M));  % correct matrix (it should be invertible)
 end
 
 %% save results

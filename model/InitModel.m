@@ -1,3 +1,1 @@
-clear all;
-
 load('RobotConstants');

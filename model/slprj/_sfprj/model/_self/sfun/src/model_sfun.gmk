@@ -8,7 +8,7 @@ LD = $(CC)
  
 MODEL     = model
 TARGET      = sfun
-MODULE_SRCS   = c2_model.c
+MODULE_SRCS   = c5_model.c
 MODEL_SRC  = model_sfun.c
 MODEL_REG = model_sfun_registry.c
 MAKEFILE    = model_sfun.gmk
@@ -24,7 +24,7 @@ MLSLSF_INCLUDES  = \
     -I"C:\Program Files\MATLAB\R2016a\simulink\include\sf_runtime" \
     -I"C:\Program Files\MATLAB\R2016a\stateflow\c\mex\include" \
     -I"C:\Program Files\MATLAB\R2016a\rtw\c\src" \
-    -I"C:\Users\Florian\Documents\Uni\IDP\Work\simulator\slprj\_sfprj\model\_self\sfun\src" 
+    -I"C:\Users\Florian\Documents\Uni\IDP\Work\model\slprj\_sfprj\model\_self\sfun\src" 
 
 THIRD_PARTY_INCLUDES = 
 

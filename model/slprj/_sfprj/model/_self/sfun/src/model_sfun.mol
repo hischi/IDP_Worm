@@ -1,8 +1,7 @@
 model_sfun.obj
-c2_model.obj
+c5_model.obj
 model_sfun_registry.obj
--LC:\PROGRA~1\MATLAB\R2016a\extern\lib\win64\mingw64
--llibmwblas
+
 "C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\sf_runtime.lib" 
 "C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmx.lib" 
 "C:\Program Files\MATLAB\R2016a\extern\lib\win64\mingw64\libmex.lib" 

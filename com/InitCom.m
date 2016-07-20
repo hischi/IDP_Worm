@@ -25,3 +25,5 @@ c = 0.000001; %best accuracy (0.025), peak vel error at 0.4
 Q = c; %covariance of unbiased white noise (ddq surrogate)
 M = dlqe(Ad,G,Cd,Q,R); %Kalman Gain
 [Ae,Be,Ce,De]=destim(Ad,Bd,Cd,Dd,M);
+
+clear Ac Ad Bc Bd c Cc Cd d Dc Dd G M Q quant R Sysc Sysd
